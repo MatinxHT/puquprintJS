@@ -16,9 +16,20 @@ describe('PUQU bitmap protocol', () => {
     expect(Array.from(result.body)).toEqual([60, 2, 0, 0, 0, 255])
   })
 
+  it('builds the 300 dpi command header', () => {
+    const result = buildBitmapPrintData(solidBitmap(24, 1, 255), 24, 1, 300)
+    expect(Array.from(result.header)).toEqual([58, 2, 1, 0, 5, 0, 0, 6])
+  })
+
   it('pads bitmap widths to a whole byte', () => {
     const result = buildBitmapPrintData(solidBitmap(9, 1, 255), 9, 1, 200)
     expect(result.width).toBe(16)
+  })
+
+  it('treats fully transparent pixels as white', () => {
+    const rgba = solidBitmap(8, 1, 0)
+    for (let offset = 3; offset < rgba.length; offset += 4) rgba[offset] = 0
+    expect(Array.from(compressBitmap(rgba, 8, 1))).toEqual([60, 1, 0, 0, 1])
   })
 
   it('parses state notifications and exposes readable state', () => {
@@ -33,6 +44,7 @@ describe('PUQU bitmap protocol', () => {
 
   it('rejects malformed bitmap input', () => {
     expect(() => compressBitmap(new Uint8Array(1), 8, 1)).toThrow('RGBA 位图数据长度不足')
+    expect(() => compressBitmap(new Uint8Array(), 0, 1)).toThrow('标签像素尺寸必须是正整数')
   })
 })
 

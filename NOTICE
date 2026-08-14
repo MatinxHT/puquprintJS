@@ -1,0 +1,19 @@
+puquprintJS attribution and rights notice
+
+This project is an independent, unofficial implementation for PUQU label
+printers. It is not an official PUQU SDK and is not endorsed by PUQU.
+
+The implementation was developed from protocol and transport behavior
+previously adapted from a PUQU SDK integration package. The MIT License in
+this repository applies only to material that the repository contributors
+have the right to license. It does not grant rights to any vendor SDK,
+protocol documentation, trademark, firmware, or other third-party material.
+
+Before publishing, redistributing, or commercially using code derived from
+vendor materials, contact PUQU through:
+
+https://www.puqulabel.com/about/
+
+Obtain and retain written permission covering the intended use. If permission
+is not granted, do not redistribute vendor-derived material under this
+project's MIT License.

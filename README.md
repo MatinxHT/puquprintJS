@@ -4,6 +4,10 @@
 
 > 当前仓库不是璞趣官方 SDK。协议实现源自现有项目对厂商小程序 SDK 数据格式的适配，请先用你的具体打印机型号做实机验收。
 
+> **资料来源与适用范围：**本仓库整理的是从 **2026 年 8 月 14 日下载的璞趣 SDK 对接包**中提取、转换并验证的浏览器端核心功能，目标机型包括 **PQ、AQ、TQ、Q1 等系列标签打印机**。不同型号和固件的 BLE UUID、MTU、状态通知可能存在差异，因此“适用”表示协议具备对接基础，不代表所有机型已经完成实机认证。
+
+> **权利与授权：**本仓库的 MIT 许可证仅适用于仓库贡献者有权许可的内容，不代表璞趣或其他权利人已经授权其 SDK、协议资料、商标或其他材料。计划公开发布、再分发或用于商业项目之前，请通过[璞趣官网联系页面](https://www.puqulabel.com/about/)向厂商确认适用授权，并保留书面许可。详见 [`NOTICE`](./NOTICE)。
+
 ## 能力
 
 - 将 RGBA/Canvas 位图转成璞趣打印数据；
@@ -27,13 +31,40 @@ Web Bluetooth 是“有限可用”的实验性浏览器能力，不是所有主
 
 参考：[Chrome Web Bluetooth 指南](https://developer.chrome.com/docs/capabilities/bluetooth)、[Web Bluetooth 规范](https://webbluetoothcg.github.io/web-bluetooth/)、[MDN Web Bluetooth](https://developer.mozilla.org/en-US/docs/Web/API/Web_Bluetooth_API)。
 
-## 安装与构建
+## 开发方式
+
+建议使用 Node.js 20 或更高版本。首次拉取仓库后：
 
 ```bash
-npm install
-npm run test
+npm ci
+npm run test:watch
+```
+
+核心实现按协议层（`src/protocol.ts`）与浏览器传输层（`src/web-bluetooth.ts`）分离。开发约定、目录职责、新机型适配要求和测试规范见 [`CONTRIBUTING.md`](./CONTRIBUTING.md)。修改代码后执行：
+
+```bash
+npm run validate
+```
+
+该命令依次执行 TypeScript 类型检查、Vitest 自动测试和发布构建。
+
+## 仓库代码测试方式
+
+```bash
+# 运行一次全部自动测试
+npm test
+
+# 开发时监听文件变化
+npm run test:watch
+
+# 只做严格类型检查
+npm run typecheck
+
+# 生成 dist/ 发布文件
 npm run build
 ```
+
+自动测试无需连接打印机，覆盖位图压缩、200/300 DPI 指令头、透明像素、宽度补齐、状态解析、连接流程和 ATT 大包失败后回退到 20 字节分包。Web Bluetooth 与硬件/固件密切相关，发布兼容性结论前仍需完成下文的实机清单。
 
 在另一个本地项目中测试：
 
@@ -41,7 +72,11 @@ npm run build
 npm install ../puquprintJS
 ```
 
-发布到 npm 前，请先确认包名、版本、许可和实机兼容矩阵；本仓库未自动发布。
+发布到 npm 前，请先确认包名、版本、许可和实机兼容矩阵；本仓库未配置自动发布。执行 `npm pack` 或 `npm publish` 时，`prepack` 会自动运行类型检查、测试和构建，避免发布缺少或过期的 `dist/` 文件。可先用以下命令检查最终包内容：
+
+```bash
+npm pack --dry-run
+```
 
 ## 最小用法
 
@@ -116,3 +151,5 @@ const printer = new PuquWebBluetoothPrinter({
 - `puquProtocol.test.ts`：协议基准用例。
 
 业务专属的 50 × 30 mm 产品标签布局、BOM、序列号、打印历史接口和 React 页面没有进入 SDK。
+
+上述来源说明只用于披露实现背景，不构成厂商授权声明。如需公开发布或再分发，请先通过[璞趣官网联系页面](https://www.puqulabel.com/about/)确认相关 SDK、协议资料和商标的使用权限。

@@ -3,6 +3,7 @@
   "version": "0.1.0",
   "description": "Framework-agnostic Web Bluetooth SDK for PUQU label printers",
   "type": "module",
+  "sideEffects": false,
   "main": "./dist/index.js",
   "types": "./dist/index.d.ts",
   "exports": {
@@ -14,12 +15,16 @@
   "files": [
     "dist",
     "README.md",
-    "LICENSE"
+    "LICENSE",
+    "NOTICE"
   ],
   "scripts": {
     "build": "tsc -p tsconfig.json",
     "test": "vitest run",
-    "typecheck": "tsc -p tsconfig.json --noEmit"
+    "test:watch": "vitest",
+    "typecheck": "tsc -p tsconfig.json --noEmit",
+    "validate": "npm run typecheck && npm test && npm run build",
+    "prepack": "npm run validate"
   },
   "keywords": [
     "puqu",
@@ -29,7 +34,14 @@
     "ble",
     "typescript"
   ],
+  "author": "puquprintJS contributors",
   "license": "MIT",
+  "engines": {
+    "node": ">=20"
+  },
+  "publishConfig": {
+    "access": "public"
+  },
   "devDependencies": {
     "typescript": "~6.0.2",
     "vitest": "^4.1.10"
