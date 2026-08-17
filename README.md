@@ -144,7 +144,7 @@ const printer = new PuquWebBluetoothPrinter({
 
 ## 来源说明
 
-首版核心从 PartTrace 的以下实现提炼：
+首版核心从私人项目 PartTrace 的以下实现提炼：
 
 - `puquProtocol.ts`：协议、位图压缩与状态解析；
 - `webBluetoothPrinter.ts`：Web Bluetooth 连接、分包和队列；
@@ -153,3 +153,6 @@ const printer = new PuquWebBluetoothPrinter({
 业务专属的 50 × 30 mm 产品标签布局、BOM、序列号、打印历史接口和 React 页面没有进入 SDK。
 
 上述来源说明只用于披露实现背景，不构成厂商授权声明。如需公开发布或再分发，请先通过[璞趣官网联系页面](https://www.puqulabel.com/about/)确认相关 SDK、协议资料和商标的使用权限。
+
+<img width="1079" height="1899" alt="3341389e9dbed10d18d261ce70e226ef" src="https://github.com/user-attachments/assets/41073d94-d013-4d31-9124-0a01b47be7f9" />
+
