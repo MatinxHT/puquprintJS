@@ -1,8 +1,8 @@
 # puquprintJS
 
-面向璞趣（PUQU）BLE 标签打印机的框架无关 TypeScript SDK。它把 PartTrace 项目中已经验证的位图压缩、打印指令、设备状态解析和 Web Bluetooth GATT 传输抽离为一个独立包，可直接用于 Angular、React、Vue 或原生 JavaScript。
+面向璞趣（PUQU）双模蓝牙（传统/BLE） 标签打印机的框架无关 TypeScript SDK。它把私有 PartTrace 项目中已经验证的位图压缩、打印指令、设备状态解析和 Web Bluetooth GATT 传输抽离为一个独立包，可直接用于 Angular、React、Vue 或原生 JavaScript。
 
-> 当前仓库不是璞趣官方 SDK。协议实现源自现有项目对厂商小程序 SDK 数据格式的适配，请先用你的具体打印机型号做实机验收。
+> 当前仓库不是璞趣官方 SDK。协议实现源自现有项目对厂商微信小程序 SDK 数据格式的适配，请先用你的具体打印机型号做实机验收。
 
 > **资料来源与适用范围：**本仓库整理的是从 **2026 年 8 月 14 日下载的璞趣 SDK 对接包**中的微信小程序开发实例提取、转换并验证的浏览器端核心功能，目标机型包括 **PQ、AQ、TQ、Q1 等系列标签打印机**。不同型号和固件的 BLE UUID、MTU、状态通知可能存在差异，因此“适用”表示协议具备对接基础，不代表所有机型已经完成实机认证。
 
